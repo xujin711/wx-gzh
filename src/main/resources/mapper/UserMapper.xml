@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="msb.wxgzh.mapper.UserMapper">
+    <resultMap id="BaseResultMap" type="msb.wxgzh.pojo.User">
+        <id column="id" jdbcType="INTEGER" property="id"></id>
+        <result column="username" jdbcType="VARCHAR" property="username"></result>
+        <result column="memo" jdbcType="VARCHAR" property="memo"></result>
+        <result column="balance" jdbcType="DOUBLE" property="balance"></result>
+        <result column="user_id" jdbcType="INTEGER" property="userId"></result>
+    </resultMap>
+
+    <!--  insert into user (id,username,memo,balance) values (#{id,jdbcType=INTEGER},#{},,#{},#{})-->
+
+    <insert id="insert" parameterType="msb.wxgzh.pojo.User" >
+          insert into user
+          <trim prefix="(" suffix=")" suffixOverrides=",">
+              <if test="id != null">
+                  id,
+              </if>
+              <if test="username != null">
+                  username,
+              </if>
+              <if test="memo != null">
+                  memo,
+              </if>
+              <if test="balance != null">
+                  balance,
+              </if>
+          </trim>
+          <trim prefix="values(" suffix=")" suffixOverrides=",">
+              <if test="id != null">
+                  #{id,jdbcType=INTEGER},
+              </if>
+              <if test="username != null">
+                  #{username,jdbcType=VARCHAR},
+              </if>
+              <if test="memo != null">
+                  #{memo,jdbcType=VARCHAR},
+              </if>
+              <if test="balance != null">
+                  #{balance,jdbcType=DOUBLE},
+              </if>
+          </trim>
+    </insert>
+
+     <update id="updateUser" parameterType="msb.wxgzh.pojo.User">
+        update user
+        <set>
+            <if test="id != null">
+               id = #{id,jdbcType=INTEGER},
+            </if>
+            <if test="username != null">
+                username = #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="memo != null">
+                memo = #{memo,jdbcType=VARCHAR},
+            </if>
+            <if test="balance != null">
+                balance = #{balance,jdbcType=DOUBLE},
+            </if>
+        </set>
+          <where>user_id = #{userId,jdbcType=INTEGER}</where>
+       </update>
+
+<!--    user_id = #{userId,jdbcType=INTEGER}-->
+    <select id="selectUser" parameterType="msb.wxgzh.pojo.User" resultMap="BaseResultMap">
+            select * from user
+            <where>
+                <if test="username != null">
+                    username like "%"#{username}"%"
+                </if>
+            </where>
+    </select>
+    <select id="selectUserByid" parameterType="Long" resultMap="BaseResultMap">
+        select * from user where  user_id = #{userId,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deletesUser" parameterType="Long" >
+        delete from user
+        <where>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=INTEGER}
+            </if>
+        </where>
+
+    </delete>
+
+    <!--&lt;!&ndash; 动态删除操作  delete from students where id in(?,?,?);&ndash;&gt;
+    <delete id="deleteStudent">
+        delete from students where id in
+        &lt;!&ndash; foreach用于迭代数组元素
+             open表示开始符号
+             close表示结束符号
+             seprator表示元素间的分割符
+             items表示迭代的数组
+        &ndash;&gt;
+        <foreach collection="array" open="(" close=")" separator="," item="ids">
+            #{ids}
+        </foreach>
+    </delete>-->
+
+</mapper>

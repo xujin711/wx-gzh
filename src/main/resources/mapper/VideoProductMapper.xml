@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="msb.wxgzh.mapper.VideoProductMapper" >
+  <resultMap id="BaseResultMap" type="msb.wxgzh.pojo.VideoProduct" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="video_category" property="videoCategory" jdbcType="VARCHAR" />
+    <result column="video_name" property="videoName" jdbcType="VARCHAR" />
+    <result column="video_detail" property="videoDetail" jdbcType="VARCHAR" />
+    <result column="video_address" property="videoAddress" jdbcType="VARCHAR" />
+    <result column="image_address" property="imageAddress" jdbcType="VARCHAR" />
+    <result column="create_id" property="createId" jdbcType="BIGINT" />
+    <result column="create_name" property="createName" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="update_id" property="updateId" jdbcType="BIGINT" />
+    <result column="update_name" property="updateName" jdbcType="VARCHAR" />
+    <result column="is_del" property="isDel" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_id, video_category, video_name, video_detail, video_address, image_address, 
+    create_id, create_name, create_time, update_time, update_id, update_name, is_del
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+  select
+  <include refid="Base_Column_List" />
+  from video_product
+  where id = #{id,jdbcType=BIGINT}
+</select>
+  <select id="selectVideoProductByUser" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from video_product
+    where user_id = #{userId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from video_product
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="msb.wxgzh.pojo.VideoProduct" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into video_product (user_id, video_category, video_name, 
+      video_detail, video_address, image_address, 
+      create_id, create_name, create_time, 
+      update_time, update_id, update_name, 
+      is_del)
+    values (#{userId,jdbcType=BIGINT}, #{videoCategory,jdbcType=VARCHAR}, #{videoName,jdbcType=VARCHAR}, 
+      #{videoDetail,jdbcType=VARCHAR}, #{videoAddress,jdbcType=VARCHAR}, #{imageAddress,jdbcType=VARCHAR}, 
+      #{createId,jdbcType=BIGINT}, #{createName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{updateId,jdbcType=BIGINT}, #{updateName,jdbcType=VARCHAR}, 
+      #{isDel,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="msb.wxgzh.pojo.VideoProduct" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into video_product
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="videoCategory != null" >
+        video_category,
+      </if>
+      <if test="videoName != null" >
+        video_name,
+      </if>
+      <if test="videoDetail != null" >
+        video_detail,
+      </if>
+      <if test="videoAddress != null" >
+        video_address,
+      </if>
+      <if test="imageAddress != null" >
+        image_address,
+      </if>
+      <if test="createId != null" >
+        create_id,
+      </if>
+      <if test="createName != null" >
+        create_name,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="updateId != null" >
+        update_id,
+      </if>
+      <if test="updateName != null" >
+        update_name,
+      </if>
+      <if test="isDel != null" >
+        is_del,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="videoCategory != null" >
+        #{videoCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="videoName != null" >
+        #{videoName,jdbcType=VARCHAR},
+      </if>
+      <if test="videoDetail != null" >
+        #{videoDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="videoAddress != null" >
+        #{videoAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="imageAddress != null" >
+        #{imageAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null" >
+        #{createId,jdbcType=BIGINT},
+      </if>
+      <if test="createName != null" >
+        #{createName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null" >
+        #{updateId,jdbcType=BIGINT},
+      </if>
+      <if test="updateName != null" >
+        #{updateName,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null" >
+        #{isDel,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="msb.wxgzh.pojo.VideoProduct" >
+    update video_product
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="videoCategory != null" >
+        video_category = #{videoCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="videoName != null" >
+        video_name = #{videoName,jdbcType=VARCHAR},
+      </if>
+      <if test="videoDetail != null" >
+        video_detail = #{videoDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="videoAddress != null" >
+        video_address = #{videoAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="imageAddress != null" >
+        image_address = #{imageAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null" >
+        create_id = #{createId,jdbcType=BIGINT},
+      </if>
+      <if test="createName != null" >
+        create_name = #{createName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null" >
+        update_id = #{updateId,jdbcType=BIGINT},
+      </if>
+      <if test="updateName != null" >
+        update_name = #{updateName,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null" >
+        is_del = #{isDel,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="msb.wxgzh.pojo.VideoProduct" >
+    update video_product
+    set user_id = #{userId,jdbcType=BIGINT},
+      video_category = #{videoCategory,jdbcType=VARCHAR},
+      video_name = #{videoName,jdbcType=VARCHAR},
+      video_detail = #{videoDetail,jdbcType=VARCHAR},
+      video_address = #{videoAddress,jdbcType=VARCHAR},
+      image_address = #{imageAddress,jdbcType=VARCHAR},
+      create_id = #{createId,jdbcType=BIGINT},
+      create_name = #{createName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_id = #{updateId,jdbcType=BIGINT},
+      update_name = #{updateName,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

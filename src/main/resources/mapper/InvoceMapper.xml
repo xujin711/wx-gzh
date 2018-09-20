@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="msb.wxgzh.mapper.InvoceMapper" >
+  <resultMap id="BaseResultMap" type="msb.wxgzh.pojo.Invoce" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="invoice_type" property="invoiceType" jdbcType="VARCHAR" />
+    <result column="invoice_titletype" property="invoiceTitletype" jdbcType="VARCHAR" />
+    <result column="invoice_title" property="invoiceTitle" jdbcType="VARCHAR" />
+    <result column="invoice_code" property="invoiceCode" jdbcType="VARCHAR" />
+    <result column="invoice_context" property="invoiceContext" jdbcType="VARCHAR" />
+    <result column="invoice_balance" property="invoiceBalance" jdbcType="DECIMAL" />
+    <result column="invoice_email" property="invoiceEmail" jdbcType="VARCHAR" />
+    <result column="invoice_addressee" property="invoiceAddressee" jdbcType="VARCHAR" />
+    <result column="invoce_telephone" property="invoceTelephone" jdbcType="BIGINT" />
+    <result column="invoce_address" property="invoceAddress" jdbcType="VARCHAR" />
+    <result column="invoce_id" property="invoceId" jdbcType="BIGINT" />
+    <result column="invoce_cash_n_delivery" property="invoceCashNDelivery" jdbcType="VARCHAR" />
+    <result column="is_del" property="isDel" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, invoice_type, invoice_titletype, invoice_title, invoice_code, invoice_context, 
+    invoice_balance, invoice_email, invoice_addressee, invoce_telephone, invoce_address, 
+    invoce_id, invoce_cash_n_delivery, is_del
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from invoce
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from invoce
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="msb.wxgzh.pojo.Invoce" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into invoce (invoice_type, invoice_titletype, invoice_title, 
+      invoice_code, invoice_context, invoice_balance, 
+      invoice_email, invoice_addressee, invoce_telephone, 
+      invoce_address, invoce_id, invoce_cash_n_delivery, 
+      is_del)
+    values (#{invoiceType,jdbcType=VARCHAR}, #{invoiceTitletype,jdbcType=VARCHAR}, #{invoiceTitle,jdbcType=VARCHAR}, 
+      #{invoiceCode,jdbcType=VARCHAR}, #{invoiceContext,jdbcType=VARCHAR}, #{invoiceBalance,jdbcType=DECIMAL}, 
+      #{invoiceEmail,jdbcType=VARCHAR}, #{invoiceAddressee,jdbcType=VARCHAR}, #{invoceTelephone,jdbcType=BIGINT}, 
+      #{invoceAddress,jdbcType=VARCHAR}, #{invoceId,jdbcType=BIGINT}, #{invoceCashNDelivery,jdbcType=VARCHAR}, 
+      #{isDel,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="msb.wxgzh.pojo.Invoce" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into invoce
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="invoiceType != null" >
+        invoice_type,
+      </if>
+      <if test="invoiceTitletype != null" >
+        invoice_titletype,
+      </if>
+      <if test="invoiceTitle != null" >
+        invoice_title,
+      </if>
+      <if test="invoiceCode != null" >
+        invoice_code,
+      </if>
+      <if test="invoiceContext != null" >
+        invoice_context,
+      </if>
+      <if test="invoiceBalance != null" >
+        invoice_balance,
+      </if>
+      <if test="invoiceEmail != null" >
+        invoice_email,
+      </if>
+      <if test="invoiceAddressee != null" >
+        invoice_addressee,
+      </if>
+      <if test="invoceTelephone != null" >
+        invoce_telephone,
+      </if>
+      <if test="invoceAddress != null" >
+        invoce_address,
+      </if>
+      <if test="invoceId != null" >
+        invoce_id,
+      </if>
+      <if test="invoceCashNDelivery != null" >
+        invoce_cash_n_delivery,
+      </if>
+      <if test="isDel != null" >
+        is_del,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="invoiceType != null" >
+        #{invoiceType,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceTitletype != null" >
+        #{invoiceTitletype,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceTitle != null" >
+        #{invoiceTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceCode != null" >
+        #{invoiceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceContext != null" >
+        #{invoiceContext,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceBalance != null" >
+        #{invoiceBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="invoiceEmail != null" >
+        #{invoiceEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceAddressee != null" >
+        #{invoiceAddressee,jdbcType=VARCHAR},
+      </if>
+      <if test="invoceTelephone != null" >
+        #{invoceTelephone,jdbcType=BIGINT},
+      </if>
+      <if test="invoceAddress != null" >
+        #{invoceAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="invoceId != null" >
+        #{invoceId,jdbcType=BIGINT},
+      </if>
+      <if test="invoceCashNDelivery != null" >
+        #{invoceCashNDelivery,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null" >
+        #{isDel,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="msb.wxgzh.pojo.Invoce" >
+    update invoce
+    <set >
+      <if test="invoiceType != null" >
+        invoice_type = #{invoiceType,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceTitletype != null" >
+        invoice_titletype = #{invoiceTitletype,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceTitle != null" >
+        invoice_title = #{invoiceTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceCode != null" >
+        invoice_code = #{invoiceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceContext != null" >
+        invoice_context = #{invoiceContext,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceBalance != null" >
+        invoice_balance = #{invoiceBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="invoiceEmail != null" >
+        invoice_email = #{invoiceEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceAddressee != null" >
+        invoice_addressee = #{invoiceAddressee,jdbcType=VARCHAR},
+      </if>
+      <if test="invoceTelephone != null" >
+        invoce_telephone = #{invoceTelephone,jdbcType=BIGINT},
+      </if>
+      <if test="invoceAddress != null" >
+        invoce_address = #{invoceAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="invoceId != null" >
+        invoce_id = #{invoceId,jdbcType=BIGINT},
+      </if>
+      <if test="invoceCashNDelivery != null" >
+        invoce_cash_n_delivery = #{invoceCashNDelivery,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null" >
+        is_del = #{isDel,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="msb.wxgzh.pojo.Invoce" >
+    update invoce
+    set invoice_type = #{invoiceType,jdbcType=VARCHAR},
+      invoice_titletype = #{invoiceTitletype,jdbcType=VARCHAR},
+      invoice_title = #{invoiceTitle,jdbcType=VARCHAR},
+      invoice_code = #{invoiceCode,jdbcType=VARCHAR},
+      invoice_context = #{invoiceContext,jdbcType=VARCHAR},
+      invoice_balance = #{invoiceBalance,jdbcType=DECIMAL},
+      invoice_email = #{invoiceEmail,jdbcType=VARCHAR},
+      invoice_addressee = #{invoiceAddressee,jdbcType=VARCHAR},
+      invoce_telephone = #{invoceTelephone,jdbcType=BIGINT},
+      invoce_address = #{invoceAddress,jdbcType=VARCHAR},
+      invoce_id = #{invoceId,jdbcType=BIGINT},
+      invoce_cash_n_delivery = #{invoceCashNDelivery,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

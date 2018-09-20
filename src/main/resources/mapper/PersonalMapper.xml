@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="msb.wxgzh.mapper.PersonalMapper" >
+  <resultMap id="BaseResultMap" type="msb.wxgzh.pojo.Personal" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="balance" property="balance" jdbcType="DECIMAL" />
+    <result column="user_signature" property="userSignature" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="user_telephone" property="userTelephone" jdbcType="VARCHAR" />
+    <result column="user_nickname" property="userNickname" jdbcType="VARCHAR" />
+    <result column="user_photo" property="userPhoto" jdbcType="VARCHAR" />
+    <result column="user_photo_url" property="userPhotoUrl" jdbcType="VARCHAR" />
+    <result column="user_appid" property="userAppid" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="openid" property="openid" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="country" property="country" jdbcType="VARCHAR" />
+    <result column="headimgurl" property="headimgurl" jdbcType="VARCHAR" />
+    <result column="privilege" property="privilege" jdbcType="VARCHAR" />
+    <result column="unionid" property="unionid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_name, balance, user_signature, update_time, user_telephone, user_nickname, 
+    user_photo, user_photo_url, user_appid, user_id, code, openid, sex, province, city, 
+    country, headimgurl, privilege, unionid
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from personal
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from personal
+    where user_id = #{userId,jdbcType=BIGINT}
+  </select>
+
+  <select id="selectByUnionid" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from personal
+    where openid = #{openid,jdbcType=VARCHAR}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from personal
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="msb.wxgzh.pojo.Personal" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into personal (user_name, balance, user_signature, 
+      update_time, user_telephone, user_nickname, 
+      user_photo, user_photo_url, user_appid, 
+      user_id, code, openid, 
+      sex, province, city, 
+      country, headimgurl, privilege, 
+      unionid)
+    values (#{userName,jdbcType=VARCHAR}, #{balance,jdbcType=DECIMAL}, #{userSignature,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{userTelephone,jdbcType=VARCHAR}, #{userNickname,jdbcType=VARCHAR}, 
+      #{userPhoto,jdbcType=VARCHAR}, #{userPhotoUrl,jdbcType=VARCHAR}, #{userAppid,jdbcType=BIGINT}, 
+      #{userId,jdbcType=BIGINT}, #{code,jdbcType=VARCHAR}, #{openid,jdbcType=VARCHAR}, 
+      #{sex,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
+      #{country,jdbcType=VARCHAR}, #{headimgurl,jdbcType=VARCHAR}, #{privilege,jdbcType=VARCHAR}, 
+      #{unionid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="msb.wxgzh.pojo.Personal" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into personal
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="balance != null" >
+        balance,
+      </if>
+      <if test="userSignature != null" >
+        user_signature,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="userTelephone != null" >
+        user_telephone,
+      </if>
+      <if test="userNickname != null" >
+        user_nickname,
+      </if>
+      <if test="userPhoto != null" >
+        user_photo,
+      </if>
+      <if test="userPhotoUrl != null" >
+        user_photo_url,
+      </if>
+      <if test="userAppid != null" >
+        user_appid,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="openid != null" >
+        openid,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="province != null" >
+        province,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="country != null" >
+        country,
+      </if>
+      <if test="headimgurl != null" >
+        headimgurl,
+      </if>
+      <if test="privilege != null" >
+        privilege,
+      </if>
+      <if test="unionid != null" >
+        unionid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="balance != null" >
+        #{balance,jdbcType=DECIMAL},
+      </if>
+      <if test="userSignature != null" >
+        #{userSignature,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userTelephone != null" >
+        #{userTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="userNickname != null" >
+        #{userNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="userPhoto != null" >
+        #{userPhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="userPhotoUrl != null" >
+        #{userPhotoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="userAppid != null" >
+        #{userAppid,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="openid != null" >
+        #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="headimgurl != null" >
+        #{headimgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="privilege != null" >
+        #{privilege,jdbcType=VARCHAR},
+      </if>
+      <if test="unionid != null" >
+        #{unionid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="msb.wxgzh.pojo.Personal" >
+    update personal
+    <set >
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="balance != null" >
+        balance = #{balance,jdbcType=DECIMAL},
+      </if>
+      <if test="userSignature != null" >
+        user_signature = #{userSignature,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userTelephone != null" >
+        user_telephone = #{userTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="userNickname != null" >
+        user_nickname = #{userNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="userPhoto != null" >
+        user_photo = #{userPhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="userPhotoUrl != null" >
+        user_photo_url = #{userPhotoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="userAppid != null" >
+        user_appid = #{userAppid,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="code != null" >
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="openid != null" >
+        openid = #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        country = #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="headimgurl != null" >
+        headimgurl = #{headimgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="privilege != null" >
+        privilege = #{privilege,jdbcType=VARCHAR},
+      </if>
+      <if test="unionid != null" >
+        unionid = #{unionid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="msb.wxgzh.pojo.Personal" >
+    update personal
+    set user_name = #{userName,jdbcType=VARCHAR},
+      balance = #{balance,jdbcType=DECIMAL},
+      user_signature = #{userSignature,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      user_telephone = #{userTelephone,jdbcType=VARCHAR},
+      user_nickname = #{userNickname,jdbcType=VARCHAR},
+      user_photo = #{userPhoto,jdbcType=VARCHAR},
+      user_photo_url = #{userPhotoUrl,jdbcType=VARCHAR},
+      user_appid = #{userAppid,jdbcType=BIGINT},
+      user_id = #{userId,jdbcType=BIGINT},
+      code = #{code,jdbcType=VARCHAR},
+      openid = #{openid,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      country = #{country,jdbcType=VARCHAR},
+      headimgurl = #{headimgurl,jdbcType=VARCHAR},
+      privilege = #{privilege,jdbcType=VARCHAR},
+      unionid = #{unionid,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
